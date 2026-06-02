@@ -6,6 +6,9 @@ enum Style {
     Default,
     Bold,
     Italic,
+    Underline,
+    Strikethrough,
+    Monospace,
 }
 
 impl fmt::Display for Style {
@@ -14,6 +17,9 @@ impl fmt::Display for Style {
             Style::Default => Ok(()),
             Style::Bold => write!(f, "\x02"),
             Style::Italic => write!(f, "\x1D"),
+            Style::Underline => write!(f, "\x1F"),
+            Style::Strikethrough => write!(f, "\x1E"),
+            Style::Monospace => write!(f, "\x11"),
         }
     }
 }
@@ -112,6 +118,42 @@ impl<T> Paint<T> {
     /// ```
     pub fn italic(mut self) -> Paint<T> {
         self.style = Style::Italic;
+        self
+    }
+
+    /// Adds underline styling to the content
+    ///
+    /// ```rust
+    /// use mirc::Paint;
+    ///
+    /// irc.send_privmsg("#channel", format!("{}", Paint::green("hello world").underline()));
+    /// ```
+    pub fn underline(mut self) -> Paint<T> {
+        self.style = Style::Underline;
+        self
+    }
+
+    /// Adds strikethough styling to the content
+    ///
+    /// ```rust
+    /// use mirc::Paint;
+    ///
+    /// irc.send_privmsg("#channel", format!("{}", Paint::green("hello world").strikethough()));
+    /// ```
+    pub fn strikethough(mut self) -> Paint<T> {
+        self.style = Style::Strikethrough;
+        self
+    }
+
+    /// Adds monospace styling to the content
+    ///
+    /// ```rust
+    /// use mirc::Paint;
+    ///
+    /// irc.send_privmsg("#channel", format!("{}", Paint::green("hello world").monospace()));
+    /// ```
+    pub fn monospace(mut self) -> Paint<T> {
+        self.style = Style::Monospace;
         self
     }
 }
