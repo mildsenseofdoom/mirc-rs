@@ -114,7 +114,7 @@ impl<T> Paint<T> {
     /// ```rust
     /// use mirc::Paint;
     ///
-    /// irc.send_privmsg("#channel", format!("{}", Paint::green("hello world").italics()));
+    /// irc.send_privmsg("#channel", format!("{}", Paint::green("hello world").italic()));
     /// ```
     pub fn italic(mut self) -> Paint<T> {
         self.style = Style::Italic;
