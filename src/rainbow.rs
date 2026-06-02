@@ -33,7 +33,7 @@ impl<'r> Rainbow<'r> {
     ///
     /// irc.send_privmsg("#channel", format!("{}", msg));
     /// ```
-    pub fn new(content: &'r str, colors: Vec<Color>) -> Rainbow {
+    pub fn new(content: &'r str, colors: Vec<Color>) -> Rainbow<'r> {
         Rainbow { colors, content }
     }
 
@@ -43,7 +43,7 @@ impl<'r> Rainbow<'r> {
     ///
     /// irc.send_privmsg("#channel", format!("{}", Rainbow::default("HELLO WORLD!")));
     /// ```
-    pub fn default(content: &'r str) -> Rainbow {
+    pub fn default(content: &'r str) -> Rainbow<'r> {
         Rainbow {
             colors: vec![
                 Color::Red,
