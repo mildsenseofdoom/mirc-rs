@@ -42,14 +42,10 @@ where
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self.bg {
             Color::Unset => match self.fg {
-                Color::Unset => write!(
-                    f,
-                    "{}\x03\u{200B}{}\x03{}",
-                    self.style, self.content, self.style
-                ),
+                Color::Unset => write!(f, "{}\x03{}\x03{}", self.style, self.content, self.style),
                 _ => write!(
                     f,
-                    "{}\x03{:02}\u{200B}{}\x03{}",
+                    "{}\x03{:02}{}\x03{}",
                     self.style, self.fg, self.content, self.style
                 ),
             },
