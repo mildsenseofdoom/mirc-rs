@@ -36,23 +36,16 @@ impl<T> fmt::Display for Paint<T>
 where
     T: fmt::Display,
 {
-    /// Inserts a unicode zero-width space (\u{200B}) to ensure that
-    /// whatever comes after the color code can't be interpreted as
-    /// part of the formatting sequence.
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self.bg {
             Color::Unset => match self.fg {
-                Color::Unset => write!(f, "{}\x03{}\x03{}", self.style, self.content, self.style),
-                _ => write!(
-                    f,
-                    "{}\x03{:02}{}\x03{}",
-                    self.style, self.fg, self.content, self.style
-                ),
+                Color::Unset => write!(f, "{}\x03{}\x0F", self.style, self.content,),
+                _ => write!(f, "{}\x03{:02}{}\x0F", self.style, self.fg, self.content),
             },
             _ => write!(
                 f,
-                "{}\x03{:02},{:02}{}\x03{}",
-                self.style, self.fg, self.bg, self.content, self.style
+                "{}\x03{:02},{:02}{}\x0F",
+                self.style, self.fg, self.bg, self.content
             ),
         }
     }
