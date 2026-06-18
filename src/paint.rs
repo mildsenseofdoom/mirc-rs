@@ -38,14 +38,15 @@ where
 {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self.bg {
-            Color::Unset => match self.fg {
-                Color::Unset => write!(f, "{}\x03{}\x0F", self.style, self.content,),
-                _ => write!(f, "{}\x03{:02}{}\x0F", self.style, self.fg, self.content),
-            },
+            Color::Unset => write!(
+                f,
+                "{}\x03{:02}{}\x03{}",
+                self.style, self.fg, self.content, self.style
+            ),
             _ => write!(
                 f,
-                "{}\x03{:02},{:02}{}\x0F",
-                self.style, self.fg, self.bg, self.content
+                "{}\x03{:02},{:02}{}\x03{}",
+                self.style, self.fg, self.bg, self.content, self.style
             ),
         }
     }
